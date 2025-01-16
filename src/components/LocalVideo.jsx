@@ -6,13 +6,17 @@ const LocalVideo = ({ stream_server, suuid }) => {
   const videoElem = useRef(null);
 
   useEffect(() => {
-    const config = {
-      iceServers: [
-        {
-          urls: ["stun:stun.l.google.com:19302"],
-        },
-      ],
-    };
+    const config = {};
+
+    // Use the below code if your peer is not in the same network
+
+    // const config = {
+    //   iceServers: [
+    //     {
+    //       urls: ["stun:stun.l.google.com:19302"],
+    //     },
+    //   ],
+    // };
 
     const pc = new RTCPeerConnection(config);
 
