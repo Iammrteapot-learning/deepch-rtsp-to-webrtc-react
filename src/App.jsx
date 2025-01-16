@@ -1,11 +1,10 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import $ from "jquery";
 
 const App = () => {
   const suuid = "MY_STREAM";
   const stream = new MediaStream();
   const videoElem = useRef(null);
-  const divElem = useRef(null);
 
   const config = {
     iceServers: [
@@ -18,9 +17,7 @@ const App = () => {
   const pc = new RTCPeerConnection(config);
 
   const log = (msg) => {
-    if (divElem.current) {
-      divElem.current.innerHTML += msg + "<br>";
-    }
+    console.log(msg);
   };
 
   const handleNegotiationNeededEvent = async () => {
@@ -85,26 +82,19 @@ const App = () => {
   }, [suuid, stream]);
 
   return (
-    <div>
-      <div ref={divElem}></div>
-      <div>
-        <div className="col">
-          <input type="hidden" name="suuid" id="suuid" value="MY_STREAM" />
-          {/* <input type="hidden" name="port" id="port" value=":8083" /> */}
-          <input type="hidden" id="localSessionDescription" readOnly={true} />
-          <input type="hidden" id="remoteSessionDescription" />
-          <div id="remoteVideos">
-            <video
-              style={{ width: "600px" }}
-              id="videoElem"
-              ref={videoElem}
-              autoPlay
-              muted
-              controls
-            ></video>
-          </div>
-          <div id="div"></div>
-        </div>
+    <div className="col">
+      <input type="hidden" name="suuid" id="suuid" value="MY_STREAM" />
+      <input type="hidden" id="localSessionDescription" readOnly={true} />
+      <input type="hidden" id="remoteSessionDescription" />
+      <div id="remoteVideos">
+        <video
+          style={{ width: "600px" }}
+          id="videoElem"
+          ref={videoElem}
+          autoPlay
+          muted
+          controls
+        ></video>
       </div>
     </div>
   );
